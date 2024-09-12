@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Truth Generator - ToolsHub</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: linear-gradient(135deg, #FFA500, #8B4513); /* Matching the gradient */
+      margin: 0;
+      padding: 0;
+      color: #fff;
+    }
+
+    /* Header & Navbar Styles */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #333; /* Dark background */
+      padding: 10px 0;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .logo a {
+      font-size: 24px;
+      font-weight: bold;
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      margin: 0 15px;
+      color: #fff;
+      font-weight: bold;
+    }
+
+    /* Truth Generator Section */
+    .truth-generator {
+      text-align: center;
+      margin-top: 50px;
+      background-color: rgba(255, 255, 255, 0.1);
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      max-width: 600px;
+      margin: 50px auto;
+    }
+
+    h2 {
+      font-size: 28px;
+      color: #fff;
+    }
+
+    .btn {
+      padding: 12px 25px;
+      font-size: 16px;
+      font-weight: bold;
+      color: #fff;
+      background-color: #FFA500;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: #FF8C00;
+    }
+
+    /* Truths Display */
+    .result {
+      font-size: 24px;
+      font-weight: bold;
+      margin: 20px 0;
+      color: #fff;
+      word-wrap: break-word;
+    }
+
+    /* Footer Styles */
+    footer {
+      background-color: #333;
+      color: #FFD700;
+      padding: 20px 0;
+      text-align: center;
+    }
+
+    footer p {
+      margin: 0;
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 768px) {
+      .navbar {
+        flex-direction: column;
+      }
+      .nav-links {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .nav-links a {
+        margin: 5px 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header Section -->
+  <header>
+    <div class="container">
+      <nav class="navbar">
+        <h1 class="logo"><a href="#">ToolsHub</a></h1>
+        <div class="nav-links">
+          <a href="index.html">Home</a>
+          <a href="#tools">Tools</a>
+          <a href="#about">About</a>
+          <a href="#contact">Contact</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Truth Generator Section -->
+  <section class="truth-generator">
+    <div class="container">
+      <h2>Truth Generator</h2>
+      <button class="btn" id="generateTruthBtn">Generate Truth</button>
+      <div class="result" id="result"></div>
+    </div>
+  </section>
+
+  <!-- Footer Section -->
+  <footer>
+    <div class="container">
+      <p>&copy; 2024 ToolsHub. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- JavaScript for Truth Generator -->
+  <script>
+    const generateTruthBtn = document.getElementById('generateTruthBtn');
+    const resultDiv = document.getElementById('result');
+
+    const truths = [
+      "What is your biggest fear?",
+      "Have you ever lied to your best friend?",
+      "What is the most embarrassing thing you've done?",
+      "What's a secret you've never told anyone?",
+      "Have you ever cheated in a test?",
+      "If you could have one wish come true, what would it be?",
+      "What's the biggest lie you've ever told?",
+      "Who was your first crush?",
+      "What's the craziest thing you've ever done?",
+      "If you could be invisible for one day, what would you do?",
+      "What is the last lie you told?",
+      "What's something you're afraid to tell your parents?",
+      "Have you ever stolen something?",
+      "Who do you have a secret crush on?",
+      "If you could change one thing about yourself, what would it be?",
+      "Have you ever told a secret you promised to keep?",
+      "What's the most childish thing you still do?",
+      "What's something you've done that you regret?",
+      "What's the meanest thing you've ever said to someone?",
+      "Have you ever been in love?",
+      "If you could live anywhere in the world, where would it be?",
+      "What's something you're really bad at?",
+      "Who in this room do you think is the funniest?",
+      "Have you ever broken the law?",
+      "What's something you would never want your parents to know?",
+      "What's the most embarrassing thing that ever happened to you at school?",
+      "What's the silliest thing you've ever cried about?",
+      "Who is the most annoying person you know?",
+      "What was the last thing you searched for on your phone?",
+      "What would you do if you could be the opposite gender for one day?",
+      "What's your biggest insecurity?",
+      "If you could trade lives with anyone for a day, who would it be?",
+      "What is your worst habit?",
+      "Have you ever peed in a pool?",
+      "Who do you think is the most attractive person you know?",
+      "What is your least favorite family member and why?",
+      "What’s the weirdest thing you've ever eaten?",
+      "Do you have any secret talents?",
+      "What's the most awkward situation you've ever been in?",
+      "Who do you text the most?",
+      "What's your worst fashion mistake?",
+      "What's the most childish thing you've done recently?",
+      "Have you ever talked behind someone's back?",
+      "What do you like the most about yourself?",
+      "What's something you've done that you wouldn't want anyone to know?",
+      "If you could erase one past experience, what would it be?",
+      "What was the last lie you told?",
+      "What's your guilty pleasure?",
+      "Have you ever been rejected?",
+      "What's the most ridiculous thing you've ever done for love?",
+      // Add more truths as needed
+    ];
+
+    generateTruthBtn.addEventListener('click', () => {
+      const randomTruth = truths[Math.floor(Math.random() * truths.length)];
+      resultDiv.textContent = randomTruth;
+    });
+  </script>
+
+</body>
+</html>

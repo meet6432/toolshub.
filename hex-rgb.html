@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hex to RGB Converter - ToolsHub</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: linear-gradient(135deg, #FFA500, #8B4513); /* Matching the gradient */
+      margin: 0;
+      padding: 0;
+      color: #fff; /* White text color */
+    }
+
+    /* Header & Navbar Styles */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #333; /* Dark background */
+      padding: 10px 0;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .logo a {
+      font-size: 24px;
+      font-weight: bold;
+      color: #fff; /* White text */
+      text-decoration: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      margin: 0 15px;
+      color: #fff; /* White text */
+      font-weight: bold;
+    }
+
+    /* Hex to RGB Converter Section */
+    .hex-rgb-converter {
+      text-align: center;
+      margin-top: 50px;
+      background-color: rgba(255, 255, 255, 0.1); /* Transparent white */
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      max-width: 600px;
+      margin: 50px auto;
+    }
+
+    h2 {
+      font-size: 28px;
+      color: #fff;
+    }
+
+    .form-group {
+      margin: 20px 0;
+    }
+
+    input[type="text"] {
+      padding: 10px;
+      width: 100%;
+      max-width: 300px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      margin-top: 10px;
+    }
+
+    .btn {
+      padding: 12px 25px;
+      font-size: 16px;
+      font-weight: bold;
+      color: #fff;
+      background-color: #FFA500; /* Orange button */
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: #FF8C00; /* Darker orange on hover */
+    }
+
+    /* Result Text */
+    .result {
+      font-size: 24px;
+      font-weight: bold;
+      margin: 20px 0;
+      color: #fff;
+    }
+
+    /* Footer Styles */
+    footer {
+      background-color: #333; /* Dark footer */
+      color: #FFD700; /* Yellow text */
+      padding: 20px 0;
+      text-align: center;
+    }
+
+    footer p {
+      margin: 0;
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 768px) {
+      .navbar {
+        flex-direction: column;
+      }
+      .nav-links {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .nav-links a {
+        margin: 5px 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header Section -->
+  <header>
+    <div class="container">
+      <nav class="navbar">
+        <h1 class="logo"><a href="#">ToolsHub</a></h1>
+        <div class="nav-links">
+          <a href="index.html">Home</a>
+          <a href="#tools">Tools</a>
+          <a href="#about">About</a>
+          <a href="#contact">Contact</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hex to RGB Converter Section -->
+  <section class="hex-rgb-converter">
+    <div class="container">
+      <h2>Hex to RGB Converter</h2>
+      <div class="form-group">
+        <label for="hex">Enter Hex Code:</label>
+        <input type="text" id="hex" placeholder="#FFA500" maxlength="7">
+      </div>
+      <button class="btn" id="convertBtn">Convert</button>
+
+      <div class="result" id="result"></div>
+    </div>
+  </section>
+
+  <!-- Footer Section -->
+  <footer>
+    <div class="container">
+      <p>&copy; 2024 ToolsHub. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- JavaScript for Hex to RGB Converter -->
+  <script>
+    const hexInput = document.getElementById('hex');
+    const convertBtn = document.getElementById('convertBtn');
+    const resultDiv = document.getElementById('result');
+
+    convertBtn.addEventListener('click', () => {
+      const hex = hexInput.value;
+      
+      // Validate hex input
+      const isValidHex = /^#([0-9A-Fa-f]{3}){1,2}$/.test(hex);
+
+      if (isValidHex) {
+        // Convert hex to RGB
+        let hexValue = hex.substring(1);
+        if (hexValue.length === 3) {
+          hexValue = hexValue.split('').map(hex => hex + hex).join('');
+        }
+        const bigint = parseInt(hexValue, 16);
+        const r = (bigint >> 16) & 255;
+        const g = (bigint >> 8) & 255;
+        const b = bigint & 255;
+
+        resultDiv.textContent = `RGB: (${r}, ${g}, ${b})`;
+      } else {
+        resultDiv.textContent = "Please enter a valid hex code.";
+      }
+    });
+  </script>
+
+</body>
+</html>
+

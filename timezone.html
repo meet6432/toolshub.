@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Timezone Converter - ToolsHub</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: linear-gradient(135deg, #FFA500, #8B4513);
+      margin: 0;
+      padding: 0;
+      color: #fff;
+      text-align: center;
+    }
+
+    /* Header & Navbar Styles */
+    
+  
+
+    /* Timezone Converter Section */
+    .timezone-converter {
+      background-color: #222;
+      border-radius: 15px;
+      width: 400px;
+      margin: 50px auto;
+      padding: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .timezone-converter h2 {
+      margin-bottom: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+
+    .form-group select, .form-group input {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: none;
+      font-size: 16px;
+    }
+
+    .btn {
+      padding: 15px;
+      background-color: #FFA500;
+      border: none;
+      border-radius: 10px;
+      font-size: 20px;
+      font-weight: bold;
+      color: #fff;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      width: 100%;
+      margin-top: 20px;
+    }
+
+    .btn:hover {
+      background-color: #FF8C00;
+    }
+
+    .result {
+      margin-top: 30px;
+      font-size: 18px;
+      background-color: #333;
+      padding: 15px;
+      border-radius: 10px;
+    }
+
+    /* Footer */
+    footer {
+      background-color: #333;
+      color: #FFD700;
+      padding: 20px 0;
+      text-align: center;
+    }
+
+    footer p {
+      margin: 0;
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 768px) {
+      .navbar {
+        flex-direction: column;
+      }
+      .nav-links {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .nav-links a {
+        margin: 5px 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header Section -->
+  <header>
+    <div class="container">
+      <nav class="navbar">
+        <h1 class="logo"><a href="#">ToolsHub</a></h1>
+        <div class="nav-links">
+          <a href="index.html">Home</a>
+          <a href="#tools">Tools</a>
+          <a href="#about">About</a>
+          <a href="#contact">Contact</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Timezone Converter Section -->
+  <section class="timezone-converter">
+    <h2>Timezone Converter</h2>
+
+    <div class="form-group">
+      <label for="timeInput">Enter Time (24-hour format):</label>
+      <input type="time" id="timeInput" required>
+    </div>
+
+    <div class="form-group">
+      <label for="fromTimezone">From Timezone:</label>
+      <select id="fromTimezone">
+        <option value="0">UTC (Coordinated Universal Time)</option>
+        <option value="5.5">IST (Indian Standard Time)</option>
+        <option value="-5">EST (Eastern Standard Time)</option>
+        <option value="1">CET (Central European Time)</option>
+        <option value="8">CST (China Standard Time)</option>
+        <option value="9">JST (Japan Standard Time)</option>
+        <option value="10">AEST (Australian Eastern Standard Time)</option>
+        <option value="-8">PST (Pacific Standard Time)</option>
+        <option value="-7">MST (Mountain Standard Time)</option>
+        <option value="3">MSK (Moscow Standard Time)</option>
+        <!-- Add more timezones as needed -->
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="toTimezone">To Timezone:</label>
+      <select id="toTimezone">
+        <option value="0">UTC (Coordinated Universal Time)</option>
+        <option value="5.5">IST (Indian Standard Time)</option>
+        <option value="-5">EST (Eastern Standard Time)</option>
+        <option value="1">CET (Central European Time)</option>
+        <option value="8">CST (China Standard Time)</option>
+        <option value="9">JST (Japan Standard Time)</option>
+        <option value="10">AEST (Australian Eastern Standard Time)</option>
+        <option value="-8">PST (Pacific Standard Time)</option>
+        <option value="-7">MST (Mountain Standard Time)</option>
+        <option value="3">MSK (Moscow Standard Time)</option>
+        <!-- Add more timezones as needed -->
+      </select>
+    </div>
+
+    <button class="btn" onclick="convertTime()">Convert Time</button>
+
+    <div class="result" id="timeResult">
+      Converted Time: 
+    </div>
+  </section>
+
+  <!-- Footer Section -->
+  <footer>
+    <div class="container">
+      <p>&copy; 2024 ToolsHub. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- JavaScript for Timezone Converter -->
+  <script>
+    function convertTime() {
+      const timeInput = document.getElementById('timeInput').value;
+      const fromTimezone = parseFloat(document.getElementById('fromTimezone').value);
+      const toTimezone = parseFloat(document.getElementById('toTimezone').value);
+
+      if (!timeInput) {
+        document.getElementById('timeResult').innerText = 'Please enter a valid time';
+        return;
+      }
+
+      const [hours, minutes] = timeInput.split(':').map(Number);
+      let totalMinutes = hours * 60 + minutes + (toTimezone - fromTimezone) * 60;
+
+      if (totalMinutes < 0) totalMinutes += 1440;
+      if (totalMinutes >= 1440) totalMinutes -= 1440;
+
+      const convertedHours = Math.floor(totalMinutes / 60);
+      const convertedMinutes = totalMinutes % 60;
+
+      document.getElementById('timeResult').innerText = `Converted Time: ${convertedHours.toString().padStart(2, '0')}:${convertedMinutes.toString().padStart(2, '0')}`;
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scientific Calculator - ToolsHub</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: linear-gradient(135deg, #FFA500, #8B4513);
+      margin: 0;
+      padding: 0;
+      color: #fff;
+      text-align: center;
+    }
+
+    /* Header & Navbar Styles */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #333;
+      padding: 10px 0;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .logo a {
+      font-size: 24px;
+      font-weight: bold;
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      margin: 0 15px;
+      color: #fff;
+      font-weight: bold;
+    }
+
+    /* Scientific Calculator Section */
+    .calculator {
+      background-color: #222;
+      border-radius: 15px;
+      width: 400px;
+      margin: 50px auto;
+      padding: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .display {
+      width: 100%;
+      height: 80px;
+      background-color: #333;
+      color: #fff;
+      text-align: right;
+      padding: 20px;
+      border-radius: 10px;
+      font-size: 32px;
+      box-sizing: border-box;
+      margin-bottom: 15px;
+    }
+
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-gap: 15px;
+    }
+
+    .btn {
+      padding: 20px;
+      background-color: #FFA500;
+      border: none;
+      border-radius: 10px;
+      font-size: 20px;
+      font-weight: bold;
+      color: #fff;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: #FF8C00;
+    }
+
+    .btn.function {
+      background-color: #8B4513;
+    }
+
+    .btn.function:hover {
+      background-color: #A0522D;
+    }
+
+    /* Footer */
+    footer {
+      background-color: #333;
+      color: #FFD700;
+      padding: 20px 0;
+      text-align: center;
+    }
+
+    footer p {
+      margin: 0;
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 768px) {
+      .navbar {
+        flex-direction: column;
+      }
+      .nav-links {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .nav-links a {
+        margin: 5px 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header Section -->
+  <header>
+    <div class="container">
+      <nav class="navbar">
+        <h1 class="logo"><a href="#">ToolsHub</a></h1>
+        <div class="nav-links">
+          <a href="index.html">Home</a>
+          <a href="#tools">Tools</a>
+          <a href="#about">About</a>
+          <a href="#contact">Contact</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Scientific Calculator Section -->
+  <section class="calculator">
+    <div class="display" id="display">0</div>
+    <div class="buttons">
+      <button class="btn function" onclick="clearDisplay()">C</button>
+      <button class="btn function" onclick="deleteChar()">DEL</button>
+      <button class="btn function" onclick="insert('(')">(</button>
+      <button class="btn function" onclick="insert(')')">)</button>
+      
+      <button class="btn" onclick="insert('7')">7</button>
+      <button class="btn" onclick="insert('8')">8</button>
+      <button class="btn" onclick="insert('9')">9</button>
+      <button class="btn function" onclick="insert('/')">÷</button>
+      
+      <button class="btn" onclick="insert('4')">4</button>
+      <button class="btn" onclick="insert('5')">5</button>
+      <button class="btn" onclick="insert('6')">6</button>
+      <button class="btn function" onclick="insert('*')">×</button>
+      
+      <button class="btn" onclick="insert('1')">1</button>
+      <button class="btn" onclick="insert('2')">2</button>
+      <button class="btn" onclick="insert('3')">3</button>
+      <button class="btn function" onclick="insert('-')">−</button>
+      
+      <button class="btn" onclick="insert('0')">0</button>
+      <button class="btn" onclick="insert('.')">.</button>
+      <button class="btn" onclick="calculate()">=</button>
+      <button class="btn function" onclick="insert('+')">+</button>
+
+      <!-- Scientific Functions -->
+      <button class="btn function" onclick="insert('Math.sqrt(')">√</button>
+      <button class="btn function" onclick="insert('Math.pow(')">x<sup>y</sup></button>
+      <button class="btn function" onclick="insert('Math.sin(')">sin</button>
+      <button class="btn function" onclick="insert('Math.cos(')">cos</button>
+      <button class="btn function" onclick="insert('Math.tan(')">tan</button>
+      <button class="btn function" onclick="insert('Math.log10(')">log</button>
+      <button class="btn function" onclick="insert('Math.exp(')">e^x</button>
+      <button class="btn function" onclick="insert('factorial(')">n!</button>
+    </div>
+  </section>
+
+  <!-- Footer Section -->
+  <footer>
+    <div class="container">
+      <p>&copy; 2024 ToolsHub. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- JavaScript for Scientific Calculator -->
+  <script>
+    let display = document.getElementById('display');
+
+    function insert(value) {
+      if (display.innerHTML === "0") {
+        display.innerHTML = value;
+      } else {
+        display.innerHTML += value;
+      }
+    }
+
+    function clearDisplay() {
+      display.innerHTML = "0";
+    }
+
+    function deleteChar() {
+      if (display.innerHTML.length === 1) {
+        display.innerHTML = "0";
+      } else {
+        display.innerHTML = display.innerHTML.slice(0, -1);
+      }
+    }
+
+    function calculate() {
+      try {
+        display.innerHTML = eval(display.innerHTML);
+      } catch (e) {
+        display.innerHTML = "Error";
+      }
+    }
+
+    function factorial(num) {
+      if (num == 0 || num == 1) {
+        return 1;
+      } else {
+        return num * factorial(num - 1);
+      }
+    }
+
+    // Keyboard Support
+    document.addEventListener('keydown', function (event) {
+      const key = event.key;
+      if (!isNaN(key)) { // If it's a number
+        insert(key);
+      } else if (key === "Backspace") {
+        deleteChar();
+      } else if (key === "Enter") {
+        calculate();
+      } else if (key === "+" || key === "-" || key === "*" || key === "/") {
+        insert(key);
+      } else if (key === ".") {
+        insert(key);
+      } else if (key === "(" || key === ")") {
+        insert(key);
+      }
+    });
+  </script>
+
+</body>
+</html>

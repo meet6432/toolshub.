@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Merge PDF Tool</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #FFA500, #8B4513);
+            color: #fff;
+            text-align: center;
+        }
+        .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #333;
+      padding: 10px 0;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .logo a {
+      font-size: 24px;
+      font-weight: bold;
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      margin: 0 15px;
+      color: #fff;
+      font-weight: bold;
+    }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h2 {
+            margin-top: 20px;
+            font-size: 32px;
+            color: #fff;
+        }
+
+        .tool-card {
+            background-color: #333;
+            padding: 30px;
+            border-radius: 10px;
+            margin-top: 40px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .tool-card input[type="file"] {
+            display: none;
+        }
+
+        .tool-card label {
+            background-color: #FFA500;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .tool-card label:hover {
+            background-color: #FF8C00;
+        }
+
+        .tool-card button {
+            background-color: #FFA500;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.3s ease-in-out;
+            margin-top: 20px;
+            border: none;
+        }
+
+        .tool-card button:hover {
+            background-color: #FF8C00;
+        }
+
+        .tool-card .file-info {
+            margin-top: 15px;
+            font-size: 16px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #333;
+            color: #FFD700;
+            padding: 20px 0;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        footer p {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header Section -->
+<header>
+    <div class="container">
+        <nav class="navbar">
+            <h1 class="logo"><a href="#">ToolsHub</a></h1>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="#tools">Tools</a>
+                <a href="#about">About</a>
+                <a href="#contact">Contact</a>
+            </div>
+        </nav>
+    </div>
+</header>
+
+<!-- PDF Tools Section -->
+<section class="container">
+    <h2>Merge PDF Tool</h2>
+
+    <div class="tool-card">
+        <form id="pdfForm">
+            <label for="fileInput">Select PDF Files</label>
+            <input type="file" id="fileInput" multiple accept=".pdf">
+            <div class="file-info" id="fileInfo"></div>
+            <button type="button" onclick="mergePDFs()">Merge PDFs</button>
+        </form>
+    </div>
+</section>
+
+<!-- Footer Section -->
+<footer>
+    <div class="container">
+        <p>&copy; 2024 ToolsHub. All rights reserved.</p>
+    </div>
+</footer>
+
+<!-- Include pdf-lib library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+
+<!-- JavaScript to handle PDF merge functionality -->
+<script>
+    const fileInput = document.getElementById('fileInput');
+    const fileInfo = document.getElementById('fileInfo');
+
+    fileInput.addEventListener('change', () => {
+        fileInfo.innerHTML = '';
+        for (let file of fileInput.files) {
+            fileInfo.innerHTML += `<p>${file.name}</p>`;
+        }
+    });
+
+    async function mergePDFs() {
+        const { PDFDocument } = PDFLib;
+        const files = fileInput.files;
+        if (files.length < 2) {
+            alert("Please select at least 2 PDF files to merge.");
+            return;
+        }
+
+        const mergedPdf = await PDFDocument.create();
+
+        for (const file of files) {
+            const arrayBuffer = await file.arrayBuffer();
+            const pdf = await PDFDocument.load(arrayBuffer);
+            const copiedPages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
+            copiedPages.forEach((page) => mergedPdf.addPage(page));
+        }
+
+        const mergedPdfBytes = await mergedPdf.save();
+        download(mergedPdfBytes, 'merged.pdf', 'application/pdf');
+    }
+
+    function download(data, filename, mime) {
+        const blob = new Blob([data], { type: mime });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.style.display = 'none';
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+    }
+</script>
+
+</body>
+</html>

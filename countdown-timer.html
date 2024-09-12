@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Countdown Timer with Sounds - ToolsHub</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Navigation Bar (same as home page) -->
+  <header>
+    <div class="container">
+      <nav class="navbar">
+        <h1 class="logo"><a href="#">ToolsHub</a></h1>
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="#tools">Tools</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Countdown Timer Section -->
+  <section class="countdown-timer">
+    <div class="container">
+      <h2>Countdown Timer</h2>
+      <p>Set a target date and time, or set an hourly countdown timer!</p>
+
+      <!-- Input Section -->
+      <div class="timer-form">
+        <label for="targetDate">Target Date and Time</label>
+        <input type="datetime-local" id="targetDate">
+
+        <label for="hourlyTimer">Hourly Timer (e.g., 1 hour from now)</label>
+        <input type="number" id="hourlyTimer" placeholder="Enter hours">
+
+        <button id="startTimerBtn" class="btn-primary">Start Countdown</button>
+
+        <div class="countdown-display">
+          <div class="time-segment">
+            <span id="days">00</span>
+            <p>Days</p>
+          </div>
+          <div class="time-segment">
+            <span id="hours">00</span>
+            <p>Hours</p>
+          </div>
+          <div class="time-segment">
+            <span id="minutes">00</span>
+            <p>Minutes</p>
+          </div>
+          <div class="time-segment">
+            <span id="seconds">00</span>
+            <p>Seconds</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer (same as home page) -->
+  <footer>
+    <div class="container">
+      <p>&copy; 2024 ToolsHub. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Alert Sound and Tick Sound -->
+  <audio id="alertSound" src="beep-04.mp3"></audio>
+  <audio id="tickSound" src="beep-04.mp3"></audio>
+
+  <!-- JavaScript for Countdown Timer with Sounds -->
+  <script>
+    const targetDateInput = document.getElementById('targetDate');
+    const hourlyTimerInput = document.getElementById('hourlyTimer');
+    const startTimerBtn = document.getElementById('startTimerBtn');
+    const daysDisplay = document.getElementById('days');
+    const hoursDisplay = document.getElementById('hours');
+    const minutesDisplay = document.getElementById('minutes');
+    const secondsDisplay = document.getElementById('seconds');
+
+    const alertSound = document.getElementById('alertSound');
+    const tickSound = document.getElementById('tickSound');
+
+    let countdownInterval;
+
+    // Request notification permission when page loads
+    document.addEventListener('DOMContentLoaded', () => {
+      if (Notification.permission !== 'granted') {
+        Notification.requestPermission();
+      }
+    });
+
+    function startCountdown() {
+      let targetDate;
+      const hourlyTimer = parseFloat(hourlyTimerInput.value);
+
+      if (hourlyTimer > 0) {
+        // If user selects hourly timer
+        targetDate = new Date(new Date().getTime() + hourlyTimer * 60 * 60 * 1000);
+      } else if (targetDateInput.value) {
+        // If user selects target date and time
+        targetDate = new Date(targetDateInput.value);
+      } else {
+        alert('Please select a valid date/time or set an hourly timer.');
+        return;
+      }
+
+      if (isNaN(targetDate.getTime())) {
+        alert('Invalid target date/time or hourly input.');
+        return;
+      }
+
+      if (countdownInterval) {
+        clearInterval(countdownInterval);
+      }
+
+      countdownInterval = setInterval(() => {
+        const currentTime = new Date();
+        const timeDifference = targetDate - currentTime;
+
+        if (timeDifference <= 0) {
+          clearInterval(countdownInterval);
+          notifyUser(); // Send notification when countdown completes
+          alertSound.play(); // Play alert sound when countdown finishes
+          return;
+        }
+
+        const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+
+        // Play tick sound every second
+        tickSound.play();
+
+        daysDisplay.textContent = String(days).padStart(2, '0');
+        hoursDisplay.textContent = String(hours).padStart(2, '0');
+        minutesDisplay.textContent = String(minutes).padStart(2, '0');
+        secondsDisplay.textContent = String(seconds).padStart(2, '0');
+      }, 1000);
+    }
+
+    // Function to show a browser notification
+    function notifyUser() {
+      if (Notification.permission === 'granted') {
+        new Notification('Countdown Complete!', {
+          body: 'Your countdown timer has finished!',
+          icon: 'https://example.com/notification-icon.png' // Optional icon
+        });
+      } else {
+        alert('Your countdown timer has finished!');
+      }
+    }
+
+    startTimerBtn.addEventListener('click', startCountdown);
+  </script>
+<style>/* General Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Roboto', sans-serif;
+      line-height: 1.6;
+      color: #333;
+    }
+    
+    .container {
+      width: 80%;
+      margin: 0 auto;
+    }
+    
+    /* Navbar Styles */
+    header {
+      background-color: #333;
+      padding: 10px 0;
+    }
+    
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 24px;
+      font-weight: bold;
+    }
+    
+    .nav-links {
+      list-style-type: none;
+    }
+    
+    .nav-links li {
+      display: inline;
+      margin-left: 20px;
+    }
+    
+    .nav-links a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    
+    .nav-links a:hover {
+      color: #f0a500;
+    }
+    
+    /* Countdown Timer Section */
+    .countdown-timer {
+      padding: 100px 0;
+      text-align: center;
+      background: linear-gradient(135deg, #f0a500, #333);
+      color: #fff;
+    }
+    
+    .countdown-timer h2 {
+      font-size: 36px;
+      margin-bottom: 20px;
+    }
+    
+    .countdown-timer p {
+      font-size: 18px;
+      margin-bottom: 30px;
+    }
+    
+    .timer-form {
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+      max-width: 600px;
+      margin: 0 auto;
+      text-align: left;
+    }
+    
+    .timer-form label {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 16px;
+      color: #333;
+    }
+    
+    .timer-form input[type="datetime-local"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      margin-bottom: 20px;
+    }
+    
+    .btn-primary {
+      padding: 10px 20px;
+      background-color: #f0a500;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+    
+    .btn-primary:hover {
+      background-color: #333;
+    }
+    
+    /* Countdown Display */
+    .countdown-display {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 40px;
+    }
+    
+    .time-segment {
+      text-align: center;
+    }
+    
+    .time-segment span {
+      display: block;
+      font-size: 36px;
+      font-weight: bold;
+      background-color: #333;
+      color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+    
+    .time-segment p {
+      font-size: 16px;
+      color: #fff;
+    }
+    
+    /* Footer */
+    footer {
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+      padding: 20px 0;
+      margin-top: 40px;
+    }
+    </style>
+</body>
+</html>

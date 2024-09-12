@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Random Number Generator - ToolsHub</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  
+</head>
+<body>
+
+  <!-- Navigation Bar (same as home page) -->
+  <header>
+    <div class="container">
+      <nav class="navbar">
+        <h1 class="logo"><a href="#">ToolsHub</a></h1>
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="#tools">Tools</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Random Number Generator Section -->
+  <section class="random-number-generator">
+    <div class="container">
+      <h2>Random Number Generator</h2>
+      <p>Generate a random number within a specified range. Customize the minimum and maximum range.</p>
+
+      <!-- Input Section -->
+      <div class="generator-form">
+        <label for="min">Minimum Number</label>
+        <input type="number" id="min" value="1">
+
+        <label for="max">Maximum Number</label>
+        <input type="number" id="max" value="100">
+
+        <button id="generateBtn" class="btn-primary">Generate Random Number</button>
+
+        <div class="number-display">
+          <input type="text" id="randomNumber" readonly>
+          <button id="copyBtn" class="btn-secondary">Copy</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer (same as home page) -->
+  <footer>
+    <div class="container">
+      <p>&copy; 2024 ToolsHub. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- JavaScript for Random Number Generator -->
+  <script>
+    const minInput = document.getElementById('min');
+    const maxInput = document.getElementById('max');
+    const randomNumberDisplay = document.getElementById('randomNumber');
+    const generateBtn = document.getElementById('generateBtn');
+    const copyBtn = document.getElementById('copyBtn');
+
+    function generateRandomNumber() {
+      const min = parseInt(minInput.value);
+      const max = parseInt(maxInput.value);
+      if (min >= max) {
+        alert('Maximum number should be greater than minimum number!');
+        return;
+      }
+      const randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
+      randomNumberDisplay.value = randomNumber;
+    }
+
+    function copyRandomNumber() {
+      randomNumberDisplay.select();
+      document.execCommand('copy');
+      alert('Random number copied to clipboard!');
+    }
+
+    generateBtn.addEventListener('click', generateRandomNumber);
+    copyBtn.addEventListener('click', copyRandomNumber);
+  </script>
+<style>/* General Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Roboto', sans-serif;
+      line-height: 1.6;
+      color: #333;
+    }
+    
+    .container {
+      width: 80%;
+      margin: 0 auto;
+    }
+    
+    /* Navbar Styles */
+    header {
+      background-color: #333;
+      padding: 10px 0;
+    }
+    
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 24px;
+      font-weight: bold;
+    }
+    
+    .nav-links {
+      list-style-type: none;
+    }
+    
+    .nav-links li {
+      display: inline;
+      margin-left: 20px;
+    }
+    
+    .nav-links a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    
+    .nav-links a:hover {
+      color: #f0a500;
+    }
+    
+    /* Random Number Generator Section */
+    .random-number-generator {
+      padding: 100px 0;
+      text-align: center;
+      background: linear-gradient(135deg, #f0a500, #333);
+      color: #fff;
+    }
+    
+    .random-number-generator h2 {
+      font-size: 36px;
+      margin-bottom: 20px;
+    }
+    
+    .random-number-generator p {
+      font-size: 18px;
+      margin-bottom: 30px;
+    }
+    
+    .generator-form {
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+      max-width: 600px;
+      margin: 0 auto;
+      text-align: left;
+    }
+    
+    .generator-form label {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 16px;
+      color: #333;
+    }
+    
+    .generator-form input[type="number"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      margin-bottom: 20px;
+    }
+    
+    .btn-primary {
+      padding: 10px 20px;
+      background-color: #f0a500;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+    
+    .btn-primary:hover {
+      background-color: #333;
+    }
+    
+    .number-display {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+    
+    .number-display input {
+      width: 70%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 18px;
+    }
+    
+    .btn-secondary {
+      padding: 10px;
+      background-color: #333;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+    
+    .btn-secondary:hover {
+      background-color: #444;
+    }
+    
+    /* Footer */
+    footer {
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+      padding: 20px 0;
+      margin-top: 40px;
+    }
+    </style>
+</body>
+</html>

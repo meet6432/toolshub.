@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Funny Dares Generator - ToolsHub</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: linear-gradient(135deg, #FFA500, #8B4513); /* Matching the gradient */
+      margin: 0;
+      padding: 0;
+      color: #fff;
+    }
+
+    /* Header & Navbar Styles */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #333; /* Dark background */
+      padding: 10px 0;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .logo a {
+      font-size: 24px;
+      font-weight: bold;
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      margin: 0 15px;
+      color: #fff;
+      font-weight: bold;
+    }
+
+    /* Funny Dares Generator Section */
+    .funny-dares {
+      text-align: center;
+      margin-top: 50px;
+      background-color: rgba(255, 255, 255, 0.1);
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      max-width: 600px;
+      margin: 50px auto;
+    }
+
+    h2 {
+      font-size: 28px;
+      color: #fff;
+    }
+
+    .btn {
+      padding: 12px 25px;
+      font-size: 16px;
+      font-weight: bold;
+      color: #fff;
+      background-color: #FFA500;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: #FF8C00;
+    }
+
+    /* Dares Display */
+    .result {
+      font-size: 24px;
+      font-weight: bold;
+      margin: 20px 0;
+      color: #fff;
+      word-wrap: break-word;
+    }
+
+    /* Footer Styles */
+    footer {
+      background-color: #333;
+      color: #FFD700;
+      padding: 20px 0;
+      text-align: center;
+    }
+
+    footer p {
+      margin: 0;
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 768px) {
+      .navbar {
+        flex-direction: column;
+      }
+      .nav-links {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .nav-links a {
+        margin: 5px 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header Section -->
+  <header>
+    <div class="container">
+      <nav class="navbar">
+        <h1 class="logo"><a href="#">ToolsHub</a></h1>
+        <div class="nav-links">
+          <a href="index.html">Home</a>
+          <a href="#tools">Tools</a>
+          <a href="#about">About</a>
+          <a href="#contact">Contact</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Funny Dares Generator Section -->
+  <section class="funny-dares">
+    <div class="container">
+      <h2>Funny Dares Generator</h2>
+      <button class="btn" id="generateDareBtn">Generate Funny Dare</button>
+      <div class="result" id="result"></div>
+    </div>
+  </section>
+
+  <!-- Footer Section -->
+  <footer>
+    <div class="container">
+      <p>&copy; 2024 ToolsHub. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- JavaScript for Funny Dares Generator -->
+  <script>
+    const generateDareBtn = document.getElementById('generateDareBtn');
+    const resultDiv = document.getElementById('result');
+
+    const dares = [
+    "Dance like a chicken for one minute.",
+  "Talk in a British accent for the next 3 rounds.",
+  "Sing your favorite song with a funny voice.",
+  "Do 10 pushups.",
+  "Wear your socks on your hands for the next 10 minutes.",
+  "Run around the house yelling, 'I'm the king/queen of the world!'",
+  "Let the person to your left draw on your face with a pen.",
+  "Eat a spoonful of mustard.",
+  "Try to lick your elbow for 20 seconds.",
+  "Do a silly dance every time someone says 'dare'.",
+  "Pretend you're a monkey for 2 minutes.",
+  "Speak in gibberish for the next 5 minutes.",
+  "Call your crush and tell them a funny joke.",
+  "Sing the chorus of your least favorite song.",
+  "Pretend to be a waiter for 10 minutes.",
+  "Wear your clothes backward for the rest of the game.",
+  "Do your best impression of a celebrity for 1 minute.",
+  "Act like a robot for 2 minutes.",
+  "Dance without music for 2 minutes.",
+  "Speak in rhyme for the next 5 minutes.",
+  "Do your best impersonation of someone in the room.",
+  "Let someone else redo your hairstyle.",
+  "Make up a song about a person in the room.",
+  "Let someone write on your forehead with a marker.",
+  "Take a selfie with the funniest face you can make.",
+  "Do 20 jumping jacks and shout a random word every time you jump.",
+  "Try to juggle 3 objects of your choice.",
+  "Give someone in the room a piggyback ride.",
+  "Try to sing with your mouth closed.",
+  "Do a handstand for as long as you can.",
+  "Speak in a whisper for the next 10 minutes.",
+  "Do an impression of your favorite movie character.",
+  "Make a prank call to a random number.",
+  "Wear a hat made out of toilet paper for the next 5 minutes.",
+  "Invent a new dance move and perform it.",
+  "Let the person to your right tweet something from your account.",
+  "Balance a spoon on your nose for 10 seconds.",
+  "Walk backward for the next 3 minutes.",
+  "Talk in slow motion for the next 2 minutes.",
+  "Try to touch your toes without bending your knees.",
+  "Let someone tickle you for 30 seconds.",
+  "Sing the alphabet without moving your lips.",
+  "Pretend you're a pirate and talk like one for the next 5 minutes.",
+  "Draw a picture of your favorite animal while blindfolded.",
+  "Let someone else pick an outfit for you to wear.",
+  "Hold your breath for as long as you can.",
+  "Speak in a robot voice for the next 3 minutes.",
+  "Say the alphabet backward as fast as you can.",
+  "Try to balance a book on your head for 1 minute.",
+  "Act like a cat for the next 3 minutes.",
+  "Let someone else give you a new nickname.",
+  "Do 5 cartwheels in a row.",
+  "Pretend you're a news anchor and give a report on the current weather.",
+  "Speak only in questions for the next 5 minutes.",
+  "Eat a raw onion slice.",
+  "Do your best dance move for 30 seconds.",
+  "Pretend to be an opera singer for 1 minute.",
+  "Spin around 10 times and then try to walk in a straight line.",
+  "Let someone give you a funny hairstyle.",
+  "Imitate your favorite cartoon character.",
+  "Pretend to be a superhero for 2 minutes.",
+  "Talk like a baby for the next 5 minutes.",
+  "Try to lick your nose.",
+  "Do your best animal impression.",
+  "Let someone draw a mustache on your face.",
+  "Try to moonwalk across the room.",
+  "Attempt to breakdance for 1 minute.",
+  "Recite a tongue twister as fast as you can.",
+  "Walk on your knees until your next turn.",
+  "Wrap yourself in toilet paper like a mummy.",
+  "Sing everything you say for the next 10 minutes.",
+  "Jump up and down until your next turn.",
+  "Pretend to be a ballet dancer for 1 minute.",
+  "Speak in a high-pitched voice for the next 5 minutes.",
+  "Let someone else give you a nickname and call you that for the rest of the game.",
+  "Pretend to be a dog and fetch a stick.",
+  "Try to balance a spoon on your nose.",
+  "Do your best runway walk for 1 minute.",
+  "Talk without moving your lips.",
+  "Try to make the person next to you laugh.",
+  "Pretend to be a statue for 2 minutes.",
+  "Hold a plank for as long as you can.",
+  "Imitate a famous singer for 1 minute.",
+  "Do the worm dance move across the room.",
+  "Speak only in song lyrics for the next 5 minutes.",
+  "Try to do a cartwheel.",
+  "Walk on your hands if you can for 1 minute.",
+  "Pretend you're a secret agent and sneak around the room.",
+  "Do 15 squats while pretending to be a frog.",
+  "Make a sandwich while blindfolded.",
+  "Imitate a famous actor's voice.",
+  "Pretend to be a zombie for 2 minutes.",
+  "Try to whistle a tune with your mouth full of water.",
+  "Hop on one foot for the next 3 minutes.",
+  "Let someone else tickle you for 30 seconds.",
+  "Pretend to have an invisible lasso and capture someone in the room.",
+  "Wear sunglasses for the rest of the game.",
+  "Sing the national anthem in a funny voice.",
+  "Pretend to swim in an invisible pool.",
+  "Talk in a deep voice for the next 5 minutes.",
+  "Play air guitar for 1 minute."
+    ];
+
+    generateDareBtn.addEventListener('click', () => {
+      const randomDare = dares[Math.floor(Math.random() * dares.length)];
+      resultDiv.textContent = randomDare;
+    });
+  </script>
+
+</body>
+</html>
