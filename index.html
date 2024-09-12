@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All-in-One Tools Website</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<style><style>
+    body {
+        font-family: 'Roboto', sans-serif;
+        background: linear-gradient(135deg, #FFA500, #8B4513);
+        margin: 0;
+        padding: 0;
+        color: #fff;
+        text-align: center;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    /* Navbar */
+    .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #333;
+        padding: 10px 0;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .logo a {
+        font-size: 24px;
+        font-weight: bold;
+        color: #fff;
+        text-decoration: none;
+    }
+
+    .nav-links a {
+        text-decoration: none;
+        margin: 0 15px;
+        color: #fff;
+        font-weight: bold;
+    }
+
+    /* Search Bar */
+    .search-bar {
+        margin-top: 50px;
+    }
+
+    .search-container {
+        position: relative;
+        width: 80%;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .search-input {
+        width: 100%;
+        padding: 15px 20px;
+        border: none;
+        border-radius: 30px;
+        font-size: 18px;
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease-in-out;
+    }
+
+    .search-input:focus {
+        outline: none;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .search-button {
+        position: absolute;
+        top: 50%;
+        right: 15px;
+        transform: translateY(-50%);
+        background-color: #FFA500;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 50px;
+        cursor: pointer;
+        color: #fff;
+        font-size: 16px;
+        transition: background-color 0.3s ease-in-out;
+    }
+
+    .search-button:hover {
+        background-color: #FF8C00;
+    }
+
+    .tools-list {
+        display: none;
+        margin-top: 20px;
+        text-align: left;
+    }
+
+    .tools-list ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    .tools-list li {
+        background-color: #333;
+        padding: 15px;
+        margin-bottom: 10px;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .tools-list li:hover {
+        background-color: #FFA500;
+    }
+
+    /* Footer */
+    footer {
+        background-color: #333;
+        color: #FFD700;
+        padding: 20px 0;
+        text-align: center;
+        margin-top: 50px;
+    }
+
+    footer p {
+        margin: 0;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .navbar {
+            flex-direction: column;
+        }
+
+        .nav-links {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .nav-links a {
+            margin: 5px 0;
+        }
+    }
+</style> </style>
+  <!-- Navigation Bar -->
+  <header>
+    <div class="container">
+      <nav class="navbar">
+        <h1 class="logo"><a href="#">ToolsHub</a></h1>
+        <ul class="nav-links">
+          <li><a href="#">Home</a></li>
+          <li><a href="#tools">Tools</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <h2>Welcome to ToolsHub</h2>
+      <p>Your one-stop destination for free and fun tools! From password generators to coin flippers, we’ve got everything you need.</p>
+      <a href="#tools" class="btn-primary">Explore Tools</a>
+    </div>
+  </section>
+
+  <!-- Tools Section --> <section class="search-bar">
+    
+    <div class="search-container">
+      <input type="text" id="searchInput" class="search-input" placeholder="Search for tools...">
+      <button class="search-button" onclick="searchTools()">Search</button>
+    </div>
+  </section><section class="tools-list" id="toolsList">
+    <ul id="tools">
+        <li><a href="password-generator.html">Password Generator</a></li>
+      <li><a href="random-number.html">Random Number Generator</a></li>
+      <li><a href="unit-converter.html">Unit Converter</a></li>
+      <li><a href="countdown-timer.html">Countdown Timer</a></li>
+      <li><a href="stopwatch-timer.html">Stopwatch</a></li>
+      <li><a href="age-calculator.html">Age Calculator</a></li>
+      <li><a href="percentage-calculator.html">Percentage Calculator</a></li>
+      <li><a href="hex-rgb.html">Hex to RGB Converter</a></li>
+      <li><a href="reverse-text.html">Reverse Text Generator</a></li>
+      <li><a href="palindrome-checker.html">Palindrome Checker</a></li>
+      <li><a href="name-combiner.html">Name Combiner</a></li>
+      <li><a href="funnydares generator.html">Funny Dares Generator</a></li>
+      <li><a href="truth generator.html">Truth Generator</a></li>
+      <li><a href="coin flipper.html">Coin Flipper</a></li>
+      <li><a href="scientific calculator.html">Scientific Calculator</a></li>
+      <li><a href="loan-calculator.html">Loan Calculator</a></li>
+      <li><a href="text to binary converter.html">Text to Binary Converter</a></li>
+      <li><a href="word-counter.html">Word Counter</a></li>
+      <li><a href="alphabetical-order tool.html">Alphabetical Order Tool</a></li>
+      <li><a href="factorial-calculator.html">Factorial Calculator</a></li>
+      <li><a href="volume-converter.html">Volume Converter</a></li>
+      <li><a href="random-word.html">Random Word Generator</a></li>
+      <li><a href="day-counter.html">Day Counter</a></li>
+      <li><a href="timezone.html">Timezone Converter</a></li>
+      <li><a href="qrcode-generator.html">QR Code Generator</a></li>
+      <li><a href="Bmi calculator.html">BMI calculator</a></li>
+      <li><a href="pdf-converter.html">Pdf Tool</a></li>
+      <li><a href="net-profit.html">net-profit</a></li>
+      <li><a href="invoice.html">invoice-generator</a></li>
+    </ul>
+  </section>  <script>
+    function searchTools() {
+      const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+      const toolsList = document.getElementById('toolsList');
+      const tools = document.querySelectorAll('#tools li');
+      
+      let found = false;
+      toolsList.style.display = 'none';  // Hide list by default
+      
+      if (searchTerm) {
+        tools.forEach(tool => {
+          if (tool.textContent.toLowerCase().includes(searchTerm)) {
+            tool.style.display = 'block';
+            found = true;
+          } else {
+            tool.style.display = 'none';
+          }
+        });
+        
+        if (found) {
+          toolsList.style.display = 'block'; // Show list if matching tools found
+        }
+      } else {
+        tools.forEach(tool => tool.style.display = 'block'); // Show all if search is empty
+        toolsList.style.display = 'block';
+      }
+    }
+  </script>
+  <section id="tools" class="tools-section">
+    <div class="container">
+      <h2>Our Tools</h2>
+      <p>Explore the wide variety of tools we offer for free:</p>
+      <div class="tools-grid">
+
+        <!-- Tool 1 -->
+        <div class="tool-card">
+          <h3>Password Generator</h3>
+          <p>Create strong, secure passwords with ease.</p>
+          <a href="password-generator.html" class="btn-secondary">Try Now</a>
+        </div>
+
+        <!-- Tool 2 -->
+        <div class="tool-card">
+          <h3>Random Number Generator</h3>
+          <p>Generate random numbers for any purpose.</p>
+          <a href="random-number.html" class="btn-secondary">Try Now</a>
+        </div>
+
+        <!-- Tool 3 -->
+        <div class="tool-card">
+          <h3>Unit Converter</h3>
+          <p>Convert between various units like length, weight, and temperature.</p>
+          <a href="unit-converter.html" class="btn-secondary">Try Now</a>
+        </div>
+
+        <!-- Tool 4 -->
+        <div class="tool-card">
+          <h3>Countdown Timer</h3>
+          <p>Set a timer for any event or task.</p>
+          <a href="countdown-timer.html" class="btn-secondary">Try Now</a>
+        </div>
+
+        <!-- Tool 5 -->
+        <div class="tool-card">
+          <h3>Stopwatch</h3>
+          <p>Track time with a simple stopwatch.</p>
+          <a href="stopwatch-timer.html" class="btn-secondary">Try Now</a>
+        </div>
+
+        <!-- Tool 6 -->
+        <div class="tool-card">
+          <h3>Age Calculator</h3>
+          <p>Calculate your exact age in years, months, and days.</p>
+          <a href="age-calculator.html" class="btn-secondary">Try Now</a>
+        </div>
+
+        <!-- Tool 7 -->
+        <div class="tool-card">
+          <h3>Percentage Calculator</h3>
+          <p>Quick percentage calculations for discounts, interest, and more.</p>
+          <a href="percentage-calculator.html" class="btn-secondary">Try Now</a>
+        </div>
+
+        <!-- Tool 8 -->
+       <!--- <div class="tool-card">
+          <h3>Tip Calculator</h3>
+          <p>Easily calculate how much tip to leave at restaurants.</p>
+          <a href="#" class="btn-secondary">Try Now</a>
+        </div>
+->
+        <!-- Tool 9 -->
+        <div class="tool-card">
+          <h3>Hex to RGB Converter</h3>
+          <p>Convert hex color codes to RGB format.</p>
+          <a href="hex-rgb.html" class="btn-secondary">Try Now</a>
+        </div>
+
+        <!-- Tool 10 -->
+        <div class="tool-card">
+          <h3>Reverse Text Generator</h3>
+          <p>Reverse any input text.</p>
+          <a href="reverse-text.html" class="btn-secondary">Try Now</a>
+        </div>
+
+        <!-- Tool 11 -->
+        <div class="tool-card">
+          <h3>Palindrome Checker</h3>
+          <p>Check whether a word or sentence is a palindrome.</p>
+          <a href="palindrome-checker.html" class="btn-secondary">Try Now</a>
+        </div>
+
+        <!-- Tool 12 -->
+        <div class="tool-card">
+          <h3>Name Combiner</h3>
+          <p>Merge two names into one unique combination.</p>
+          <a href="name-combiner.html" class="btn-secondary">Try Now</a>
+        </div>
+
+        <!-- Tool 13 -->
+        <div class="tool-card">
+          <h3>Funny Dares Generator</h3>
+          <p>Get a random funny dare for your next game night.</p>
+          <a href="funnydares generator.html" class="btn-secondary">Try Now</a>
+        </div>
+
+        <!-- Tool 14 -->
+        <div class="tool-card">
+          <h3>Truth Generator</h3>
+          <p>Generate random truth challenges.</p>
+          <a href="truth generator.html" class="btn-secondary">Try Now</a>
+        </div>
+
+        <!-- Tool 15 -->
+        <div class="tool-card">
+          <h3>Coin Flipper</h3>
+          <p>Flip a virtual coin to make a decision.</p>
+          <a href="coin flipper.html" class="btn-secondary">Try Now</a>
+        </div>
+
+        <!-- Tool 16 -->
+        <div class="tool-card">
+          <h3>Scientific Calculator</h3>
+          <p>Solve complex math problems.</p>
+          <a href="scientific calculator.html" class="btn-secondary">Try Now</a>
+        </div>
+
+        <!-- Tool 17 -->
+        <div class="tool-card">
+          <h3>BMI Calculator</h3>
+          <p>Calculate your Body Mass Index based on your weight and height.</p>
+          <a href="Bmi calculator.html" class="btn-secondary">Try Now</a>
+        </div>
+
+        <!-- Tool 18 -->
+        <div class="tool-card">
+          <h3>Loan Calculator</h3>
+          <p>Calculate your loan payments based on amount, interest, and duration.</p>
+          <a href="loan-calculator.html" class="btn-secondary">Try Now</a>
+          </div>
+         
+          <!-- Tool 19 -->
+          <div class="tool-card">
+            <h3>Text to Binary Converter</h3>
+            <p>Convert your text into binary code.</p>
+            <a href="text to binary converter.html" class="btn-secondary">Try Now</a>
+          </div>
+  
+          <!-- Tool 20 -->
+          <div class="tool-card">
+            <h3>Word Counter</h3>
+            <p>Count the words and characters in any text.</p>
+            <a href="word-counter.html" class="btn-secondary">Try Now</a>
+          </div>
+  
+          <!-- Tool 21 -->
+          <div class="tool-card">
+            <h3>Alphabetical Order Tool</h3>
+            <p>Sort your text alphabetically.</p>
+            <a href="alphabetical-order tool.html" class="btn-secondary">Try Now</a>
+
+          </div>
+  
+          <!-- Tool 22 -->
+          <div class="tool-card">
+            <h3>Factorial Calculator</h3>
+            <p>Calculate the factorial of a number.</p>
+            <a href="factorial-calculator.html" class="btn-secondary">Try Now</a>
+          </div>
+  
+          <!-- Tool 23 -->
+          <div class="tool-card">
+            <h3>Volume Converter</h3>
+            <p>Convert between different volume units.</p>
+            <a href="volume-converter.html" class="btn-secondary">Try Now</a>
+          </div>
+  
+          <!-- Tool 24 -->
+          <div class="tool-card">
+            <h3>Random Word Generator</h3>
+            <p>Generate random words for games or creative writing.</p>
+            <a href="random-word.html" class="btn-secondary">Try Now</a>
+          </div>
+  
+          <!-- Tool 25 -->
+          <div class="tool-card">
+            <h3>Day Counter</h3>
+            <p>Count the days between two dates.</p>
+            <a href="day-counter.html" class="btn-secondary">Try Now</a>
+
+          </div>
+   <!-- Tool 25 -->
+   <div class="tool-card">
+    <h3>Timezone converter</h3>
+    <p>convert the time with any country </p>
+    <a href="timezone.html" class="btn-secondary">Try Now</a>
+
+  </div>
+  <div class="tool-card">
+    <h3>Qr code-generator</h3>
+    <p>convert any link or Text into qr code </p>
+    <a href="qrcode-generator.html" class="btn-secondary">Try Now</a>
+
+  </div>
+  <div class="tool-card">
+    <h3>Pdf tool</h3>
+    <p>convert any link or Text into qr code </p>
+    <a href="pdf-converter.html" class="btn-secondary">Try Now</a>
+
+  </div>
+  <div class="tool-card">
+    <h3>net profit calculator</h3>
+    <p>calculate net profit here </p>
+    <a href="net-profit.html" class="btn-secondary">Try Now</a>
+
+  </div>
+  <div class="tool-card">
+    <h3>Invoice generator</h3>
+    <p>Generate Invoice here </p>
+    <a href="invoice.html" class="btn-secondary">Try Now</a>
+
+  </div>
+        </div>
+      </div>
+    </section>
+  
+    <!-- Footer Section -->
+    <footer>
+      <div class="container">
+        <p>&copy; 2024 ToolsHub. All rights reserved.</p>
+      </div>
+    </footer>
+  
+  </body>
+  </html>
